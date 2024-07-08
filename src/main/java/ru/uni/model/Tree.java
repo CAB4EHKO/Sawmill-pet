@@ -1,14 +1,17 @@
 package ru.uni.model;
 
+import ru.uni.enums.Diameter;
+import ru.uni.enums.WoodType;
+
 public class Tree {
 
-    private int diameter;
-    private String woodType;
     private int length;
+    private Diameter diameter;
+    private WoodType woodType;
 
-    public Tree(int length, String woodType, int diameter) {
+    public Tree(int length, int diameter, WoodType woodType) {
         this.length = length;
-        this.diameter = diameter;
+        this.diameter = Diameter.fromDiameter(diameter);
         this.woodType = woodType;
     }
 
@@ -21,18 +24,22 @@ public class Tree {
     }
 
     public int getDiameter() {
-        return diameter;
+        return diameter.getDiameter();
     }
 
     public void setDiameter(int diameter) {
-        this.diameter = diameter;
+        this.diameter = Diameter.fromDiameter(diameter);
     }
 
-    public String getWoodType() {
+    public WoodType getWoodType() {
         return woodType;
     }
 
-    public void setWoodType(String woodType) {
+    public void setWoodType(WoodType woodType) {
         this.woodType = woodType;
+    }
+
+    public int getBoardsPerTwoMeters() {
+        return diameter.getBoardsPerTwoMeters();
     }
 }
