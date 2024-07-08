@@ -2,11 +2,11 @@ package ru.uni.model;
 
 public class Tree {
 
-    private int length;
     private int diameter;
     private String woodType;
+    private int length;
 
-    public Tree(int length, int diameter, String woodType) {
+    public Tree(int length, String woodType, int diameter) {
         this.length = length;
         this.diameter = diameter;
         this.woodType = woodType;

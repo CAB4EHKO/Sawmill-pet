@@ -25,16 +25,17 @@ public class SawmillService {
             // Определение количества досок, исходя из диаметра и длинны дерева
             if (tree.getDiameter() == 200) {
                 boards = 3 * (tree.getLength() / 2);
+            }  else if (tree.getDiameter() == 700) {
+                boards = 12 * (tree.getLength() / 2);
             } else if (tree.getDiameter() == 500) {
                 boards = 7 * (tree.getLength() / 2);
-            } else if (tree.getDiameter() == 700) {
-                boards = 12 * (tree.getLength() / 2);
             }
 
             // Добавление полученных досок к соответствующему виду дерева
             switch (tree.getWoodType()) {
                 case "Pine":
                     pineBoards += boards;
+                    System.out.println(123123);
                     break;
                 case "Oak":
                     oakBoards += boards;
