@@ -5,13 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="79e72777-bccc-4ca8-bf23-0e60d085a3d3" name="Changes" comment="Init commit.">
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/uni/model/Tree.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/uni/model/ext/Maple.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/uni/model/ext/Oak.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/uni/model/ext/Pine.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/uni/service/SawmillService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ru/uni/enums/Diameter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ru/uni/enums/WoodType.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/uni/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/uni/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/uni/model/Tree.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/uni/model/Tree.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/uni/model/ext/Maple.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/uni/model/ext/Oak.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/uni/model/ext/Pine.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/uni/service/SawmillService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/uni/service/SawmillService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,6 +24,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="Enum" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -33,29 +37,29 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 5
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
   <component name="ProjectId" id="2ipHq4Yj5nZjLDkIrmU6QwxZjJO" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Main.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -73,6 +77,8 @@
       <option name="presentableId" value="Default" />
       <updated>1720180789368</updated>
       <workItem from="1720180790523" duration="10390000" />
+      <workItem from="1720368584603" duration="1808000" />
+      <workItem from="1720370424389" duration="4594000" />
     </task>
     <task id="LOCAL-00001" summary="Init commit.">
       <option name="closed" value="true" />

@@ -7,6 +7,7 @@ import ru.uni.model.Tree;
  * и подсчитывает количество досок, получаемых из каждого вида дерева (Сосна, Дуб, Клён).
  */
 public class SawmillService {
+
     private int pineBoards = 0;
     private int oakBoards = 0;
     private int mapleBoards = 0;
@@ -20,26 +21,16 @@ public class SawmillService {
      */
     public void saw(Tree[] trees) {
         for (Tree tree : trees) {
-            int boards = 0;
+            int boards = tree.getBoardsPerTwoMeters() * (tree.getLength() / 2);
 
-            // Определение количества досок, исходя из диаметра и длинны дерева
-            if (tree.getDiameter() == 200) {
-                boards = 3 * (tree.getLength() / 2);
-            } else if (tree.getDiameter() == 500) {
-                boards = 7 * (tree.getLength() / 2);
-            } else if (tree.getDiameter() == 700) {
-                boards = 12 * (tree.getLength() / 2);
-            }
-
-            // Добавление полученных досок к соответствующему виду дерева
             switch (tree.getWoodType()) {
-                case "Pine":
+                case PINE:
                     pineBoards += boards;
                     break;
-                case "Oak":
+                case OAK:
                     oakBoards += boards;
                     break;
-                case "Maple":
+                case MAPLE:
                     mapleBoards += boards;
                     break;
             }
