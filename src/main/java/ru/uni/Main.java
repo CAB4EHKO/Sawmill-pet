@@ -12,9 +12,11 @@ public class Main {
         SawmillService sawmillService = new SawmillService();
 
         Tree[] trees = {
-                new Tree(6, 200, WoodType.PINE),
-                new Tree(4, 500, WoodType.MAPLE),
-                new Tree(8, 700, WoodType.OAK)
+                new Tree(6, 500, WoodType.OAK),
+                new Tree(5, 700, 111), // неизвестный тип древесины
+                new Tree(4, 500, "MAPLE"),
+                new Tree(8, 300, "OAK"),
+                new Tree(5, 700, "Пихта") // неизвестный тип древесины
         };
 
         sawmillService.saw(trees);
