@@ -1,8 +1,10 @@
 package ru.uni.service;
 
+import ru.uni.enums.Diameter;
 import ru.uni.enums.WoodType;
 import ru.uni.exceptions.UnknownWoodTypeException;
 import ru.uni.model.Tree;
+import ru.uni.model.WorkPiece;
 
 public class SawmillService {
     private int pineBoards = 0;
@@ -10,13 +12,15 @@ public class SawmillService {
     private int mapleBoards = 0;
     private int unknownWoodCount = 0;
 
-    public void saw(Tree[] trees) {
-        for (Tree tree : trees) {
-            try {
-                int boards = tree.getBoardsPerTwoMeters() * (tree.getLength() / 2);
-                WoodType woodType = tree.getWoodType();
+    //  для каждой заготовки определяем количесво досок и суммируем по типу
+    public void saw(WorkPiece[] workPieces) {
+        for (WorkPiece workPiece : workPieces) {
+            int boards = getCountBoards(workPiece);
 
-                switch (woodType) {
+            // определяется тип заготовки
+
+            try {
+                switch (workPiece.woodType()) {
                     case PINE:
                         pineBoards += boards;
                         break;
@@ -26,8 +30,9 @@ public class SawmillService {
                     case MAPLE:
                         mapleBoards += boards;
                         break;
+
                 }
-            } catch (UnknownWoodTypeException e) {
+            } catch (IllegalArgumentException e) {
                 unknownWoodCount++;
             }
         }
@@ -36,6 +41,18 @@ public class SawmillService {
         System.out.println("Oak: " + oakBoards);
         System.out.println("Maple: " + mapleBoards);
         System.out.println("Заготовок неизвестного происхождения было пропущено: " + unknownWoodCount);
+    }
+
+    // Получить колличество досок исходя из длинны и диаметра загтовки
+    // Исходя из диаметра заготовки получить колличество досок на 2 метра длинны
+    // Выделить основные сущности которые будут использоватьться
+    private int getCountBoards(WorkPiece workPiece) {
+
+        Diameter diameter = workPiece.getDiameter();
+        int boardsCountByDiameter = diameter.getBoardsPerTwoMeters();
+
+
+        return boardsCountByDiameter * (workPiece.getLength() / 2);
     }
 }
 

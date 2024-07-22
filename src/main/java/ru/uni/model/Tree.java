@@ -4,63 +4,43 @@ import ru.uni.enums.Diameter;
 import ru.uni.enums.WoodType;
 import ru.uni.exceptions.UnknownWoodTypeException;
 
-public class Tree {
+import static ru.uni.enums.Diameter.*;
+import static ru.uni.enums.WoodType.OAK;
+
+public class Tree implements WorkPiece {
 
     private int length;
-    private Diameter diameter;
-    private WoodType woodType;
+    private int diameter;
+    private String woodType;
 
-    public Tree(int length, int diameter, Object woodType) {
+    public Tree(int length, int diameter, String woodType) {
         this.length = length;
-        this.diameter = Diameter.fromDiameter(diameter);
-        if (this.diameter == null) {
-            System.out.println("Загатовку диаметра: " + diameter + " невозможно обработать");
-        }
-        if (woodType instanceof WoodType) {
-            this.woodType = (WoodType) woodType;
-        } else {
-            try {
-                this.woodType = WoodType.valueOf(woodType.toString().toUpperCase());
-            } catch (IllegalArgumentException e) {
-                this.woodType = null;
-            }
-        }
+        this.diameter = diameter;
+        this.woodType = woodType;
     }
 
+    @Override
     public int getLength() {
         return length;
     }
 
-    public void setLength(int length) {
-        this.length = length;
-    }
-
-    public int getDiameter() {
-        return diameter.getDiameter();
-    }
-
-    public void setDiameter(int diameter) {
-        this.diameter = Diameter.fromDiameter(diameter);
-    }
-
-    public WoodType getWoodType() throws UnknownWoodTypeException {
-        if (woodType == null) {
-            throw new UnknownWoodTypeException("Unknown wood type");
+    @Override
+    public Diameter getDiameter() {
+        if (SMALL.getDiameter() == diameter) {
+            return SMALL;
+        } else if (MEDIUM.getDiameter() == diameter) {
+            return MEDIUM;
+        } else if (LARGE.getDiameter() == diameter) {
+            return LARGE;
         }
-        return woodType;
+
+        throw new IllegalArgumentException("Diameter not recognized");
     }
 
-    public void setWoodType(WoodType woodType) throws UnknownWoodTypeException {
-        if (woodType == null) {
-            throw new UnknownWoodTypeException("Unknown wood type");
-        }
-        this.woodType = woodType;
+    @Override
+    public WoodType woodType() {
+        return WoodType.valueOf(woodType.toUpperCase());
     }
 
-    public int getBoardsPerTwoMeters() throws UnknownWoodTypeException {
-        if (diameter == null) {
-            throw new UnknownWoodTypeException("Unknown diameter");
-        }
-        return diameter.getBoardsPerTwoMeters();
-    }
+
 }

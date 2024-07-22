@@ -2,6 +2,7 @@ package ru.uni;
 
 import ru.uni.enums.WoodType;
 import ru.uni.model.Tree;
+import ru.uni.model.WorkPiece;
 import ru.uni.service.SawmillService;
 
 
@@ -11,15 +12,14 @@ public class Main {
 
         SawmillService sawmillService = new SawmillService();
 
-        Tree[] trees = {
-                new Tree(6, 500, WoodType.OAK),
-                new Tree(5, 700, 111), // неизвестный тип древесины
-                new Tree(4, 500, "MAPLE"),
-                new Tree(8, 300, "OAK"),
-                new Tree(5, 700, "Пихта") // неизвестный тип древесины
+        WorkPiece[] workPieces = new WorkPiece[]{
+                new Tree(4, 200, "PINE"),
+                new Tree(6, 500, "OAK"),
+                new Tree(8, 700, "MAPLE"),
+                new Tree(10, 500, "Неизвестная заготовка")
         };
 
-        sawmillService.saw(trees);
+        sawmillService.saw(workPieces);
 
     }
 }
