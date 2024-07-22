@@ -29,4 +29,17 @@ public enum Diameter {
         }
         return null;
     }
+
+    public static int getBoardsCountByDiameter(int diameter) {
+
+        if (SMALL.getDiameter() == diameter) {
+            return SMALL.getBoardsPerTwoMeters();
+        } else if (MEDIUM.getDiameter() == diameter) {
+            return MEDIUM.getBoardsPerTwoMeters();
+        } else if (LARGE.getDiameter() == diameter) {
+            return LARGE.getBoardsPerTwoMeters();
+        }
+
+        throw new IllegalArgumentException("Diameter not recognized");
+    }
 }
