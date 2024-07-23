@@ -2,10 +2,8 @@ package ru.uni.model;
 
 import ru.uni.enums.Diameter;
 import ru.uni.enums.WoodType;
-import ru.uni.exceptions.UnknownWoodTypeException;
 
 import static ru.uni.enums.Diameter.*;
-import static ru.uni.enums.WoodType.OAK;
 
 public class Tree implements WorkPiece {
 
@@ -33,7 +31,6 @@ public class Tree implements WorkPiece {
         } else if (LARGE.getDiameter() == diameter) {
             return LARGE;
         }
-
         throw new IllegalArgumentException("Diameter not recognized");
     }
 
