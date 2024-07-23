@@ -2,44 +2,45 @@ package ru.uni.model;
 
 import ru.uni.enums.Diameter;
 import ru.uni.enums.WoodType;
+import ru.uni.exceptions.UnknownWoodTypeException;
 
-public class Tree {
+import static ru.uni.enums.Diameter.*;
+import static ru.uni.enums.WoodType.OAK;
+
+public class Tree implements WorkPiece {
 
     private int length;
-    private Diameter diameter;
-    private WoodType woodType;
+    private int diameter;
+    private String woodType;
 
-    public Tree(int length, int diameter, WoodType woodType) {
+    public Tree(int length, int diameter, String woodType) {
         this.length = length;
-        this.diameter = Diameter.fromDiameter(diameter);
+        this.diameter = diameter;
         this.woodType = woodType;
     }
 
+    @Override
     public int getLength() {
         return length;
     }
 
-    public void setLength(int length) {
-        this.length = length;
+    @Override
+    public Diameter getDiameter() {
+        if (SMALL.getDiameter() == diameter) {
+            return SMALL;
+        } else if (MEDIUM.getDiameter() == diameter) {
+            return MEDIUM;
+        } else if (LARGE.getDiameter() == diameter) {
+            return LARGE;
+        }
+
+        throw new IllegalArgumentException("Diameter not recognized");
     }
 
-    public int getDiameter() {
-        return diameter.getDiameter();
+    @Override
+    public WoodType woodType() {
+        return WoodType.valueOf(woodType.toUpperCase());
     }
 
-    public void setDiameter(int diameter) {
-        this.diameter = Diameter.fromDiameter(diameter);
-    }
 
-    public WoodType getWoodType() {
-        return woodType;
-    }
-
-    public void setWoodType(WoodType woodType) {
-        this.woodType = woodType;
-    }
-
-    public int getBoardsPerTwoMeters() {
-        return diameter.getBoardsPerTwoMeters();
-    }
 }
