@@ -1,6 +1,7 @@
 package ru.uni.enums;
 
 public enum Diameter {
+
     SMALL(200, 3),
     MEDIUM(500, 7),
     LARGE(700, 12);
@@ -39,7 +40,6 @@ public enum Diameter {
         } else if (LARGE.getDiameter() == diameter) {
             return LARGE.getBoardsPerTwoMeters();
         }
-
         throw new IllegalArgumentException("Diameter not recognized");
     }
 }

@@ -3,6 +3,7 @@ package ru.uni.service;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
 import ru.uni.model.Tree;
+import ru.uni.model.WorkPiece;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -17,12 +18,12 @@ public class ReaderService {
      *
      * @return массив объектов Tree, прочитанных из CSV файла.
      */
-    public Tree[] readTrees() {
+    public WorkPiece[] readWorkPieces() {
+
         String csvFileR = "fileToRead.csv";
+        int numLines = 5;
 
-        int numLines = 4;
-        Tree[] trees = new Tree[numLines];
-
+        WorkPiece[] workPieces = new WorkPiece[numLines];
         try (
                 CSVReader csvReader = new CSVReader(new FileReader(csvFileR))) {
             String[] line;
@@ -31,7 +32,7 @@ public class ReaderService {
                 int length = Integer.parseInt(line[0].trim());
                 int diameter = Integer.parseInt(line[1].trim());
                 String type = line[2].trim().toUpperCase();
-                trees[index] = new Tree(length, diameter, type);
+                workPieces[index] = new Tree(length, diameter, type);
                 index++;
             }
         } catch (
@@ -41,6 +42,6 @@ public class ReaderService {
                 CsvValidationException e) {
             throw new RuntimeException();
         }
-        return trees;
+        return workPieces;
     }
 }
