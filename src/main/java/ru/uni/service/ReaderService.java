@@ -21,7 +21,7 @@ public class ReaderService {
     public WorkPiece[] readWorkPieces() {
 
         String csvFileR = "fileToRead.csv";
-        int numLines = 5;
+        int numLines = 6;
 
         WorkPiece[] workPieces = new WorkPiece[numLines];
         try (

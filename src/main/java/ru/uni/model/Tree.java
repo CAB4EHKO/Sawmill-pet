@@ -2,14 +2,15 @@ package ru.uni.model;
 
 import ru.uni.enums.Diameter;
 import ru.uni.enums.WoodType;
+import ru.uni.exceptions.UnknownWoodTypeException;
 
 import static ru.uni.enums.Diameter.*;
 
 public class Tree implements WorkPiece {
 
-    private int length;
-    private int diameter;
-    private String woodType;
+    private final int length;
+    private final int diameter;
+    private final String woodType;
 
     public Tree(int length, int diameter, String woodType) {
         this.length = length;
@@ -36,8 +37,10 @@ public class Tree implements WorkPiece {
 
     @Override
     public WoodType woodType() {
-        return WoodType.valueOf(woodType.toUpperCase());
+        try {
+            return WoodType.valueOf(woodType.toUpperCase());
+    } catch (IllegalArgumentException e) {
+        throw new UnknownWoodTypeException();
+        }
     }
-
-
 }

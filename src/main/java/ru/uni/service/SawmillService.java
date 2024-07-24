@@ -3,6 +3,7 @@ package ru.uni.service;
 import com.opencsv.CSVWriter;
 import org.apache.log4j.Logger;
 import ru.uni.enums.Diameter;
+import ru.uni.exceptions.UnknownWoodTypeException;
 import ru.uni.model.WorkPiece;
 
 import java.io.FileWriter;
@@ -27,6 +28,8 @@ public class SawmillService {
     private int oakBoards = 0;
     private int mapleBoards = 0;
     private int unknownWoodCount = 0;
+    private int unknownDiameter = 0;
+    private int missedBlanks = 0;
 
     /**
      * Обрабатывает массив заготовок древесины, подсчитывая количество досок
@@ -38,8 +41,9 @@ public class SawmillService {
         logger.info("Начало обработки массива заготовок.");
 
         for (WorkPiece workPiece : workPieces) {
-            int boards = getCountBoards(workPiece);
             try {
+                int boards = getCountBoards(workPiece);
+
                 switch (workPiece.woodType()) {
                     case PINE:
                         pineBoards += boards;
@@ -54,14 +58,19 @@ public class SawmillService {
                         logger.info("Добавлено " + boards + " досок клена.");
                         break;
                 }
-            } catch (IllegalArgumentException e) {
+            } catch (UnknownWoodTypeException e) {
                 unknownWoodCount++;
-                logger.warn("Обнаружен неизвестный тип древесины: ");
+                logger.warn("Обнаружен неизвестный тип древесины.");
+            } catch (IllegalArgumentException e) {
+                unknownDiameter++;
+                logger.warn("Обнаружен неподходящий диаметер заготовки.");
             }
+            missedBlanks = unknownWoodCount + unknownDiameter;
         }
 
         logger.info("Обработка завершена. Сосна: " + pineBoards + ", Дуб: " + oakBoards +
-                ", Клен: " + mapleBoards + ", Неизвестный тип: " + unknownWoodCount);
+                ", Клен: " + mapleBoards + ". \nПропущено заготовок: " + missedBlanks + " шт, из них неизвестного типа: "
+                + unknownWoodCount + " шт, неподходящего диаметра: " + unknownDiameter + " шт.");
 
         String csvFile = "fileToWrite.csv";
         try (CSVWriter writer = new CSVWriter(new FileWriter(csvFile))) {
@@ -79,8 +88,11 @@ public class SawmillService {
             String[] mapleData = {"MAPLE", String.valueOf(mapleBoards)};
             writer.writeNext(mapleData);
 
-            String[] unknownData = {"UNKNOWN", String.valueOf(unknownWoodCount)};
-            writer.writeNext(unknownData);
+            String[] unknownType = {"UNKNOWN TYPE", String.valueOf(unknownWoodCount)};
+            writer.writeNext(unknownType);
+
+            String[] inappropriateDiameter = {"INAPPROPRIATE DIAMETER", String.valueOf(unknownDiameter)};
+            writer.writeNext(inappropriateDiameter);
 
             logger.info("Результаты успешно записаны в CSV файл: " + csvFile);
         } catch (IOException e) {
@@ -95,10 +107,14 @@ public class SawmillService {
      * @return количество досок
      */
     private int getCountBoards(WorkPiece workPiece) {
-        Diameter diameter = workPiece.getDiameter();
-        int boardsCountByDiameter = diameter.getBoardsPerTwoMeters();
-        int count = boardsCountByDiameter * (workPiece.getLength() / 2);
-        logger.debug("Количество досок для заготовки с диаметром " + diameter + ": " + count);
-        return count;
+        try {
+            Diameter diameter = workPiece.getDiameter();
+            int boardsCountByDiameter = diameter.getBoardsPerTwoMeters();
+            int count = boardsCountByDiameter * (workPiece.getLength() / 2);
+            logger.debug("Количество досок для заготовки с диаметром " + diameter + ": " + count);
+            return count;
+        } catch (IllegalArgumentException e) {
+            throw e;
+        }
     }
 }
