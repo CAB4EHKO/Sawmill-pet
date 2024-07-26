@@ -4,7 +4,10 @@ import ru.uni.enums.Diameter;
 import ru.uni.enums.WoodType;
 import ru.uni.exceptions.UnknownWoodTypeException;
 
-import static ru.uni.enums.Diameter.*;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Optional;
+
 
 public class Tree implements WorkPiece {
 
@@ -24,23 +27,17 @@ public class Tree implements WorkPiece {
     }
 
     @Override
-    public Diameter getDiameter() {
-        if (SMALL.getDiameter() == diameter) {
-            return SMALL;
-        } else if (MEDIUM.getDiameter() == diameter) {
-            return MEDIUM;
-        } else if (LARGE.getDiameter() == diameter) {
-            return LARGE;
-        }
-        throw new IllegalArgumentException("Diameter not recognized");
+    public Optional<Diameter> getDiameter() {
+        return Arrays.stream(Diameter.values())
+                .min(Comparator.comparingInt(d -> Math.abs(d.getDiameter() - diameter)));
     }
 
     @Override
     public WoodType woodType() {
         try {
             return WoodType.valueOf(woodType.toUpperCase());
-    } catch (IllegalArgumentException e) {
-        throw new UnknownWoodTypeException();
+        } catch (IllegalArgumentException e) {
+            throw new UnknownWoodTypeException();
         }
     }
 }
