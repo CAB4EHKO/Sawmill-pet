@@ -8,6 +8,7 @@ import ru.uni.model.WorkPiece;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -36,7 +37,7 @@ public class SawmillService {
      *
      * @param workPieces массив заготовок древесины
      */
-    public void saw(WorkPiece[] workPieces) {
+    public void saw(List<WorkPiece> workPieces) {
         logger.info("Начало обработки массива заготовок.");
 
         for (WorkPiece workPiece : workPieces) {
