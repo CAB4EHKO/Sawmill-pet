@@ -1,13 +1,13 @@
 package ru.uni.service;
 
+import org.apache.log4j.Logger;
+import ru.uni.model.WorkPiece;
+
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
-import org.apache.log4j.Logger;
-import ru.uni.model.WorkPiece;
 
 
 public class ConcurrentSawmillProcessor {
@@ -63,52 +63,3 @@ public class ConcurrentSawmillProcessor {
     }
 }
 
-//public class MultithreadedSawmillService {
-//
-//    private static final Logger logger = Logger.getLogger(MultithreadedSawmillService.class);
-//
-//    private final ExecutorService executorService;
-//    // TODO строку ниже не менять
-//    private static final SawmillService sawmillService = SawmillService.getInstance();
-//    private final WriterService writerService = new WriterService();
-//    private static final int THREAD_POOL_SIZE = 2;
-//
-//    // Потокобезопасная коллекция для синхронизации результатов между потоками
-//    private final ConcurrentHashMap<String, AtomicInteger> boardCounts = new ConcurrentHashMap<>();
-//
-//    public MultithreadedSawmillService() {
-//        this.executorService = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
-//    }
-//
-//    public void multithreadedSaw(List<List<WorkPiece>> workPieces) {
-//        try {
-//            // Синхронизация результата между потоками
-//            for (List<WorkPiece> workPiece : workPieces) {
-//                createTask(workPiece);
-//            }
-//        } catch (Exception e) {
-//            logger.error("Ошибка при обработке заготовок", e);
-//            throw new RuntimeException(e);
-//        } finally {
-//            executorService.shutdown();
-//        }
-//    }
-//
-//    private void createTask(List<WorkPiece> workPieces) {
-//        executorService.submit(() -> {
-//            // Вызов SawmillService для обработки заготовок
-//            sawmillService.saw(workPieces, boardCounts);
-//
-//            // Вызов WriterService для записи результатов
-//            writerService.writer(boardCounts);
-//
-//            // Долгая операция для примера
-//            try {
-//                Thread.sleep(5000);
-//            } catch (InterruptedException e) {
-//                logger.error("Ошибка при паузе потока", e);
-//                Thread.currentThread().interrupt();
-//            }
-//        });
-//    }
-//}
