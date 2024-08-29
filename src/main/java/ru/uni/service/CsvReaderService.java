@@ -14,13 +14,13 @@ import java.util.List;
  * Класс ReaderService предназначен для чтения данных из CSV файла и создания массива объектов Tree.
  */
 
-public class ReaderService {
+public class CsvReaderService {
     /**
      * Читает данные из CSV файла и создает список объектов Tree.
      *
      * @return список объектов Tree, прочитанных из CSV файла.
      */
-    public List<WorkPiece> readWorkPieces() {
+    public List<WorkPiece> readWorkPiecesFromCsv() {
         String csvFileR = "fileToRead.csv";
         List<WorkPiece> workPieces = new ArrayList<>();
         try (CSVReader csvReader = new CSVReader(new FileReader(csvFileR))) {
