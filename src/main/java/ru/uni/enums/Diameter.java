@@ -1,5 +1,9 @@
 package ru.uni.enums;
 
+
+import java.util.Arrays;
+import java.util.Optional;
+
 public enum Diameter {
 
     SMALL(200, 3),
@@ -20,26 +24,5 @@ public enum Diameter {
 
     public int getBoardsPerTwoMeters() {
         return boardPerTwoMeters;
-    }
-
-    public static Diameter fromDiameter(int diameter) {
-        for (Diameter d : values()) {
-            if (d.getDiameter() == diameter) {
-                return d;
-            }
-        }
-        return null;
-    }
-
-    public static int getBoardsCountByDiameter(int diameter) {
-
-        if (SMALL.getDiameter() == diameter) {
-            return SMALL.getBoardsPerTwoMeters();
-        } else if (MEDIUM.getDiameter() == diameter) {
-            return MEDIUM.getBoardsPerTwoMeters();
-        } else if (LARGE.getDiameter() == diameter) {
-            return LARGE.getBoardsPerTwoMeters();
-        }
-        throw new IllegalArgumentException("Diameter not recognized");
     }
 }
