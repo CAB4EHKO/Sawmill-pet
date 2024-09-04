@@ -19,8 +19,6 @@ public class ConcurrentSawmillProcessor {
     private final CsvWriterService csvWriterService = new CsvWriterService();
     private static final int THREAD_POOL_SIZE = 2;
 
-    // Потокобезопасная коллекция для синхронизации результатов между потоками
-
     public ConcurrentSawmillProcessor() {
         this.executorService = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
     }
@@ -28,13 +26,7 @@ public class ConcurrentSawmillProcessor {
     public void processWorkpiecesConcurrently(List<List<WorkPiece>> partitionedWorkPieces) {
         try {
             for (List<WorkPiece> workPieces : partitionedWorkPieces) {
-                // Делаем разбиение внутри каждого подсписка
-                int chunkSize = (int) Math.ceil((double) workPieces.size() / THREAD_POOL_SIZE);
-
-                for (int i = 0; i < workPieces.size(); i += chunkSize) {
-                    List<WorkPiece> chunk = workPieces.subList(i, Math.min(workPieces.size(), i + chunkSize));
-                    createTask(chunk);
-                }
+                createTask(workPieces);
             }
         } catch (Exception e) {
             logger.error("Ошибка при обработке заготовок", e);
@@ -44,15 +36,13 @@ public class ConcurrentSawmillProcessor {
         }
     }
 
+
     private void createTask(List<WorkPiece> workPieces) {
         executorService.submit(() -> {
-            // Вызов SawmillService для обработки заготовок
             Map<String, AtomicInteger> boardCounts = sawmillService.saw(workPieces);
 
-            // Вызов WriterService для записи результатов
             csvWriterService.writeBoardCountsToCsv(boardCounts);
 
-            // Долгая операция для примера
             try {
                 Thread.sleep(5000);
             } catch (InterruptedException e) {
