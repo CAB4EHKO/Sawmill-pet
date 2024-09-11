@@ -5,13 +5,7 @@ import org.apache.log4j.Logger;
 
 import java.io.FileWriter;
 import java.io.IOException;
-
-import com.opencsv.CSVWriter;
-import org.apache.log4j.Logger;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class CsvWriterService {
