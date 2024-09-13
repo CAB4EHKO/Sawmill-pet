@@ -1,0 +1,40 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: RoSa
+      changes:
+        - sqlFile:
+            path: db/changelog/changesets/create_wood_types_table.sql
+            relativeToChangelogFile: true
+            splitStatements: true
+            stripComments: true
+
+  - changeSet:
+      id: 2
+      author: RoSa
+      changes:
+        - sqlFile:
+            path: db/changelog/changesets/create_workpiece_diameter_table.sql
+            relativeToChangelogFile: true
+            splitStatements: true
+            stripComments: true
+
+  - changeSet:
+      id: 3
+      author: RoSa
+      changes:
+        - sqlFile:
+            path: db/changelog/changesets/create_workpieces_table.sql
+            relativeToChangelogFile: true
+            splitStatements: true
+            stripComments: true
+
+  - changeSet:
+      id: 4
+      author: RoSa
+      changes:
+        - sqlFile:
+            path: db/changelog/changesets/create_boards_table.sql
+            relativeToChangelogFile: true
+            splitStatements: true
+            stripComments: true
