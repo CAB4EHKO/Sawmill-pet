@@ -4,7 +4,7 @@ databaseChangeLog:
       author: RoSa
       changes:
         - sqlFile:
-            path: db/changelog/changesets/create_wood_types_table.sql
+            path: changesets/create_wood_types_table.sql
             relativeToChangelogFile: true
             splitStatements: true
             stripComments: true
@@ -14,7 +14,7 @@ databaseChangeLog:
       author: RoSa
       changes:
         - sqlFile:
-            path: db/changelog/changesets/create_workpiece_diameter_table.sql
+            path: changesets/create_workpiece_diameter_table.sql
             relativeToChangelogFile: true
             splitStatements: true
             stripComments: true
@@ -24,7 +24,7 @@ databaseChangeLog:
       author: RoSa
       changes:
         - sqlFile:
-            path: db/changelog/changesets/create_workpieces_table.sql
+            path: changesets/create_workpieces_table.sql
             relativeToChangelogFile: true
             splitStatements: true
             stripComments: true
@@ -34,7 +34,7 @@ databaseChangeLog:
       author: RoSa
       changes:
         - sqlFile:
-            path: db/changelog/changesets/create_boards_table.sql
+            path: changesets/create_boards_table.sql
             relativeToChangelogFile: true
             splitStatements: true
             stripComments: true
