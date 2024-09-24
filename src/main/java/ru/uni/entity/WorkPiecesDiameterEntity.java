@@ -19,7 +19,7 @@ public class WorkPiecesDiameterEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(name = "milimeters_diameter", nullable = false, unique = true)
     private Integer diameter;

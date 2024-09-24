@@ -20,7 +20,7 @@ public class WorkPieceEntity {
 
     @Id
     @GeneratedValue
-    private long id;
+    private Long id;
 
     @Column(name = "meters_length", nullable = false)
     private Integer length;
