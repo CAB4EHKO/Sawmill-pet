@@ -38,3 +38,23 @@ databaseChangeLog:
             relativeToChangelogFile: true
             splitStatements: true
             stripComments: true
+
+  - changeSet:
+      id: 5
+      author: RoSa
+      changes:
+        - sqlFile:
+            path: changesets/insert_wood_types_data.sql
+            relativeToChangelogFile: true
+            splitStatements: true
+            stripComments: true
+
+  - changeSet:
+      id: 6
+      author: RoSa
+      changes:
+        - sqlFile:
+            path: changesets/insert_workpiece_diameter_data.sql
+            relativeToChangelogFile: true
+            splitStatements: true
+            stripComments: true
