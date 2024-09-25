@@ -1,6 +1,7 @@
 package ru.uni.service;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.uni.model.WorkPiece;
 
 import java.util.List;
@@ -9,10 +10,9 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 
-
 public class ConcurrentSawmillProcessor {
 
-    private static final Logger logger = Logger.getLogger(ConcurrentSawmillProcessor.class);
+    private static final Logger logger = LoggerFactory.getLogger(ConcurrentSawmillProcessor.class);
 
     private final ExecutorService executorService;
     private static final SawmillProcessor sawmillService = SawmillProcessor.getInstance();
@@ -36,7 +36,6 @@ public class ConcurrentSawmillProcessor {
         }
     }
 
-
     private void createTask(List<WorkPiece> workPieces) {
         executorService.submit(() -> {
             Map<String, AtomicInteger> boardCounts = sawmillService.saw(workPieces);
@@ -52,4 +51,3 @@ public class ConcurrentSawmillProcessor {
         });
     }
 }
-
