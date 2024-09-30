@@ -1,7 +1,8 @@
 package ru.uni.service;
 
 import com.opencsv.CSVWriter;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -9,7 +10,8 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class CsvWriterService {
-    private static final Logger logger = Logger.getLogger(CsvWriterService.class);
+
+    private static final Logger logger = LoggerFactory.getLogger(CsvWriterService.class);
 
     public void writeBoardCountsToCsv(Map<String, AtomicInteger> boardCounts) {
         String csvFile = "result_" + Thread.currentThread().getId() + ".csv";
@@ -25,7 +27,7 @@ public class CsvWriterService {
 
             logger.info("Результаты успешно записаны в CSV файл: " + csvFile);
         } catch (IOException e) {
-            logger.error("Ошибка при записи в CSV файл", e);
+            logger.error("Ошибка при записи в CSV файл: " + csvFile, e);
         }
     }
 }
