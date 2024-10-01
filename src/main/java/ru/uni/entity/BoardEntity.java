@@ -1,11 +1,11 @@
 package ru.uni.entity;
 
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
 
 @Entity
 @Table(name = "boards")
@@ -26,5 +26,4 @@ public class BoardEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "workpieces_id", nullable = false)
     private WorkPieceEntity workPiece;
-
 }

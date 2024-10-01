@@ -1,7 +1,6 @@
 package ru.uni.service;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import ru.uni.model.WorkPiece;
 
 import java.util.List;
@@ -10,9 +9,9 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 
+@Slf4j
 public class ConcurrentSawmillProcessor {
 
-    private static final Logger logger = LoggerFactory.getLogger(ConcurrentSawmillProcessor.class);
 
     private final ExecutorService executorService;
     private static final SawmillProcessor sawmillService = SawmillProcessor.getInstance();
@@ -29,7 +28,7 @@ public class ConcurrentSawmillProcessor {
                 createTask(workPieces);
             }
         } catch (Exception e) {
-            logger.error("Ошибка при обработке заготовок", e);
+            log.error("Ошибка при обработке заготовок", e);
             throw new RuntimeException(e);
         } finally {
             executorService.shutdown();
@@ -45,7 +44,7 @@ public class ConcurrentSawmillProcessor {
             try {
                 Thread.sleep(5000);
             } catch (InterruptedException e) {
-                logger.error("Ошибка при паузе потока", e);
+                log.error("Ошибка при паузе потока", e);
                 Thread.currentThread().interrupt();
             }
         });

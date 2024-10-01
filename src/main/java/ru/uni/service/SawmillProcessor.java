@@ -1,5 +1,6 @@
 package ru.uni.service;
 
+import org.springframework.stereotype.Service;
 import ru.uni.exceptions.UnknownWoodTypeException;
 import ru.uni.model.WorkPiece;
 
@@ -8,6 +9,7 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
+@Service
 public class SawmillProcessor {
 
     private static final SawmillProcessor INSTANCE = new SawmillProcessor();

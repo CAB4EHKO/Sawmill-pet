@@ -1,12 +1,12 @@
 package ru.uni.entity;
 
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ru.uni.enums.WoodType;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
