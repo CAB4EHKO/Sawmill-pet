@@ -1,15 +1,19 @@
 package ru.uni.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import ru.uni.dto.SawResult;
 import ru.uni.exceptions.UnknownWoodTypeException;
 import ru.uni.model.WorkPiece;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class SawmillProcessor {
 
     private static final SawmillProcessor INSTANCE = new SawmillProcessor();
@@ -21,24 +25,29 @@ public class SawmillProcessor {
         return INSTANCE;
     }
 
-    public Map<String, AtomicInteger> saw(List<WorkPiece> workPieces) {
-        return workPieces.stream()
-                .collect(Collectors.toConcurrentMap(
-                        workPiece -> {
-                            try {
-                                return workPiece.woodType().name();
-                            } catch (UnknownWoodTypeException e) {
-                                return "UNKNOWN";
-                            }
-                        },
-                        workPiece -> new AtomicInteger(getCountBoards(workPiece)),
-                        (a, b) -> {
-                            a.addAndGet(b.get());
-                            return a;
-                        }
-                ));
-    }
+    public SawResult saw(List<WorkPiece> workPieces) {
+        Map<String, AtomicInteger> boardCounts = new ConcurrentHashMap<>();
+        List<WorkPiece> failedWorkPieces = new ArrayList<>();
 
+        workPieces.forEach(workPiece -> {
+            try {
+                String woodTypeName = workPiece.woodType().name();
+                int count = getCountBoards(workPiece);
+                boardCounts.merge(woodTypeName, new AtomicInteger(count), (a, b) -> {
+                    a.addAndGet(b.get());
+                    return a;
+                });
+            } catch (UnknownWoodTypeException e) {
+                log.error("Неизвестный тип древесины: {}", workPiece);
+                failedWorkPieces.add(workPiece);
+            }
+        });
+
+        SawResult result = new SawResult();
+        result.setBoardCounts(boardCounts);
+        result.setFailedWorkPieces(failedWorkPieces);
+        return result;
+    }
 
     private int getCountBoards(WorkPiece workPiece) {
         return workPiece.getDiameter()

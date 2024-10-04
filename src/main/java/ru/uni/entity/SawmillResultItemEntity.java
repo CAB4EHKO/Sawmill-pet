@@ -6,24 +6,22 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.List;
-
-
 @Entity
-@Table(name = "sawmill_results")
+@Table(name = "sawmill_result_items")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class SawmillResultEntity {
+public class SawmillResultItemEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String batchNumber;
+    private String woodType;
+    private Integer boardCount;
 
-    @OneToMany(mappedBy = "result", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<SawmillResultItemEntity> items = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "sawmill_result_id")
+    private SawmillResultEntity result;
 }

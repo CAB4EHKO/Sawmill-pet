@@ -5,25 +5,25 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.ArrayList;
-import java.util.List;
-
+import ru.uni.enums.FileStatus;
 
 @Entity
-@Table(name = "sawmill_results")
+@Table(name = "file_processing_status")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class SawmillResultEntity {
+public class FileProcessingStatus {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String batchNumber;
+    private String fileName;
 
-    @OneToMany(mappedBy = "result", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<SawmillResultItemEntity> items = new ArrayList<>();
+    @Enumerated(EnumType.STRING)
+    private FileStatus status;
+
+    @Column(columnDefinition = "TEXT")
+    private String comment;
 }

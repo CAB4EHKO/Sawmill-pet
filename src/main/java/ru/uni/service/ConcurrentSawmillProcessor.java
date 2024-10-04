@@ -1,6 +1,7 @@
 package ru.uni.service;
 
 import lombok.extern.slf4j.Slf4j;
+import ru.uni.dto.SawResult;
 import ru.uni.model.WorkPiece;
 
 import java.util.List;
@@ -8,10 +9,10 @@ import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 @Slf4j
 public class ConcurrentSawmillProcessor {
-
 
     private final ExecutorService executorService;
     private static final SawmillProcessor sawmillService = SawmillProcessor.getInstance();
@@ -37,9 +38,18 @@ public class ConcurrentSawmillProcessor {
 
     private void createTask(List<WorkPiece> workPieces) {
         executorService.submit(() -> {
-            Map<String, AtomicInteger> boardCounts = sawmillService.saw(workPieces);
+            SawResult sawResult = sawmillService.saw(workPieces);
+            Map<String, AtomicInteger> boardCounts = sawResult.getBoardCounts();
 
-            csvWriterService.writeBoardCountsToCsv(boardCounts);
+            if (!sawResult.getFailedWorkPieces().isEmpty()) {
+                log.warn("Обнаружены неизвестные типы древесины: {}", sawResult.getFailedWorkPieces());
+                csvWriterService.writeFailedWorkPiecesToCsv(sawResult.getFailedWorkPieces());
+            }
+
+            Map<String, Integer> boardCountsInteger = boardCounts.entrySet().stream()
+                    .collect(Collectors.toMap(Map.Entry::getKey, e -> e.getValue().get()));
+
+            csvWriterService.writeBoardCountsToCsv(boardCountsInteger);
 
             try {
                 Thread.sleep(5000);
@@ -50,3 +60,4 @@ public class ConcurrentSawmillProcessor {
         });
     }
 }
+

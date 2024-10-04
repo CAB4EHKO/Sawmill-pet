@@ -1,5 +1,6 @@
 package ru.uni.model;
 
+import lombok.Getter;
 import ru.uni.enums.Diameter;
 import ru.uni.enums.WoodType;
 import ru.uni.exceptions.UnknownWoodTypeException;
@@ -8,7 +9,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Optional;
 
-
+@Getter
 public class Tree implements WorkPiece {
 
     private final int length;
@@ -33,11 +34,12 @@ public class Tree implements WorkPiece {
     }
 
     @Override
-    public WoodType woodType() {
+    public WoodType woodType() throws UnknownWoodTypeException {
         try {
             return WoodType.valueOf(woodType.toUpperCase());
         } catch (IllegalArgumentException e) {
-            throw new UnknownWoodTypeException();
+            throw new UnknownWoodTypeException("Неизвестный тип древесины: " + woodType);
         }
     }
+
 }

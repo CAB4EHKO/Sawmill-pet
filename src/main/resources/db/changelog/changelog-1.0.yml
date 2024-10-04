@@ -58,3 +58,33 @@ databaseChangeLog:
             relativeToChangelogFile: true
             splitStatements: true
             stripComments: true
+
+  - changeSet:
+      id: 7
+      author: RoSa
+      changes:
+        - sqlFile:
+            path: changesets/create_sawmill_results_table.sql
+            relativeToChangelogFile: true
+            splitStatements: true
+            stripComments: true
+
+  - changeSet:
+      id: 8
+      author: RoSa
+      changes:
+        - sqlFile:
+            path: changesets/create_sawmill_result_items_table.sql
+            relativeToChangelogFile: true
+            splitStatements: true
+            stripComments: true
+
+  - changeSet:
+      id: 9
+      author: RoSa
+      changes:
+        - sqlFile:
+            path: changesets/create_file_processing_status_table.sql
+            relativeToChangelogFile: true
+            splitStatements: true
+            stripComments: true
